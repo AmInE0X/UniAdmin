@@ -5,13 +5,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 
+import java.util.UUID;
+
 
 @Entity
 public class Course {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
 
     private String title;
 

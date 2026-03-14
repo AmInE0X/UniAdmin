@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 public class Teacher extends Person {
 
         private String employeeId;
+        
 
 //        @ManyToOne
 //        private Department department;

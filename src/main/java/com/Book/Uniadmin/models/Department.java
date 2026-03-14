@@ -6,12 +6,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 public class Department {
     @Id
     @GeneratedValue
-    private Long id;
+    private UUID id;
 
     private String name;
 
