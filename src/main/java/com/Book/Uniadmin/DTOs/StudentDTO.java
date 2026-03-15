@@ -1,5 +1,7 @@
 package com.Book.Uniadmin.DTOs;
 
+import com.Book.Uniadmin.models.Adress;
+import com.Book.Uniadmin.models.Student;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,16 +13,19 @@ import lombok.Setter;
 @NoArgsConstructor
 
 public class StudentDTO {
-    public class StudentRequest {
+                private String name;
+                private String email;
+                private String phone;
+                private Adress address;
+                private String department;
+                private String status;
+                private int year;
 
-        private String name;
-        private String email;
-        private String phone;
-        private String address;
-        private String department;
-        private String status;
-        private int year;
+
+        }
+
+
 
         // getters setters
-    }
-}
+
+

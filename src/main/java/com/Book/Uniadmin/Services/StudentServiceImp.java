@@ -1,5 +1,7 @@
 package com.Book.Uniadmin.Services;
 
+import com.Book.Uniadmin.DTOs.StudentDTO;
+import com.Book.Uniadmin.Mapper.StudentMapper;
 import com.Book.Uniadmin.models.Course;
 import com.Book.Uniadmin.models.Student;
 import com.Book.Uniadmin.repositories.StudentRepo;
@@ -17,6 +19,12 @@ public class StudentServiceImp implements StudentService{
      */
     @Autowired
     private StudentRepo studentRepo;
+
+   @Autowired
+    private  StudentMapper studentMapper;
+
+
+
 
     @Override
     public List<Course> findByName(String name) {
@@ -37,32 +45,38 @@ public class StudentServiceImp implements StudentService{
      * @return
      */
     @Override
-    public Student create(Student student) {
-        Student newStudent = new Student();
-        newStudent.setId(student.getId());
-        newStudent.setName(student.getName());
-        newStudent.setEmail(student.getEmail());
-        newStudent.setPhone(student.getPhone());
-        newStudent.setAddress(student.getAddress());
-        newStudent.setDepartment(student.getDepartment());
-        newStudent.setStatus(student.getStatus());
-        newStudent.setYear(student.getYear());
+    public Student create(StudentDTO student) {
+        Student s = studentMapper.toEntity(student);
+        Student s1 = studentRepo.save(s);
+        return s1 ;
 
 
 
-
-
-
-        return studentRepo.save(newStudent);
     }
 
     /**
      * @param student
      * @return
      */
+
+
+    /**
+     * @param student
+     * @return
+     */
     @Override
-    public Student update(Student student) {
-        return null;
+    public Student update(StudentDTO student,UUID s_id) {
+        Student studentA = studentRepo.findById(s_id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
+
+        studentMapper.updateStudentFromDto(student, studentA);
+
+        Student updated = studentRepo.save(studentA);
+
+        return updated;
+
+
+
     }
 
     /**
@@ -70,6 +84,7 @@ public class StudentServiceImp implements StudentService{
      */
     @Override
     public void deleteById(UUID id) {
+        studentRepo.deleteById(id);
 
     }
 
@@ -77,7 +92,9 @@ public class StudentServiceImp implements StudentService{
      * @return
      */
     @Override
-    public List<Student> findAll() {
-        return List.of();
+    public List<List<Student>> findAll() {
+        return List.of(
+                studentRepo.findAll()
+        );
     }
 }

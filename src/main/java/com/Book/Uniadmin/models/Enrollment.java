@@ -1,9 +1,6 @@
 package com.Book.Uniadmin.models;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +20,7 @@ public class Enrollment {
     @ManyToOne
     @MapsId("studentId")
     private Student student;
+
 
     @ManyToOne
     @MapsId("courseId")
