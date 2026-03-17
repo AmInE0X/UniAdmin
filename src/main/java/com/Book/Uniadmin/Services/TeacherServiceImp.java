@@ -21,10 +21,8 @@ public class TeacherServiceImp implements TeacherService{
     private TeacherRep teacherRepo;
 
     @Override
-    public List<List<Teacher>> findAll() {
-        return List.of(
-                teacherRepo.findAll()
-        );
+    public List<Teacher> findAll() {
+        return teacherRepo.findAll();
     }
 
     /**
@@ -54,7 +52,7 @@ public class TeacherServiceImp implements TeacherService{
      */
     @Override
     public Teacher update(TeacherDTO teacher,UUID id) {
-        Teacher t=teacherRepo.findById(id).orElse(null);
+        Teacher t=teacherRepo.findById(id).orElseThrow(()->new RuntimeException("entity not found"));
         teacherMapper.updateTeacherFromDto(teacher,t);
 
         teacherRepo.save(t);

@@ -2,6 +2,7 @@ package com.Book.Uniadmin.controllers;
 
 import com.Book.Uniadmin.DTOs.CourseDTO;
 import com.Book.Uniadmin.Services.CourseService;
+import com.Book.Uniadmin.Services.CourseServiceImp;
 import com.Book.Uniadmin.models.Course;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +11,12 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping
+@RequestMapping("Course")
 public class CourseController {
     @Autowired
-    private CourseService courseService;
+    private CourseServiceImp courseService;
     @GetMapping
-    public List<List<Course>> get(){
+    public List<Course> get(){
         return courseService.findAll();
 
     }
@@ -24,11 +25,11 @@ public class CourseController {
         return courseService.create(course);
 
     }
-    @PutMapping
+    @PutMapping("/{id}")
     public Course update(@RequestBody CourseDTO course, @PathVariable UUID id){
         return courseService.update(course, id);
     }
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable UUID id){
         courseService.deleteById(id);
     }

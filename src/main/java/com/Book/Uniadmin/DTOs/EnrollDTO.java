@@ -19,6 +19,9 @@ public class EnrollDTO {
 
     private UUID courseId;
     private UUID studentId;
+    private String studentName;
+    private String CourseTitle ;
+
 
     private LocalDate enrollmentDate;
 

@@ -10,66 +10,53 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-
 @Service
-public class CourseServiceImp implements CourseService{
-    /**
-     * @return
-     */
+public class CourseServiceImp implements CourseService {
+
     @Autowired
-    private CoursesRepo  coursesRepo;
+    private CoursesRepo coursesRepo;
+
     @Autowired
     private CourseMapper courseMapper;
+
     @Autowired
     private TeacherRep teacherRep;
 
     @Override
-    public List<List<Course>> findAll() {
-        return List.of();
+    public List<Course> findAll() {
+        return coursesRepo.findAll();
     }
 
-    /**
-     * @param id
-     * @return
-     */
     @Override
     public Course findById(UUID id) {
-        return null;
+        return coursesRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
     }
 
-    /**
-     * @param course
-     * @return
-     */
     @Override
     public Course create(CourseDTO course) {
-        Course toEntity = courseMapper.toEntity(course);
-        Course c1=coursesRepo.save(toEntity);
 
-        return c1;
+        Course entity = courseMapper.toEntity(course);
+
+        return coursesRepo.save(entity);
     }
 
-    /**
-     * @param course
-     * @return
-     */
     @Override
     public Course update(CourseDTO course, UUID id) {
-        Course S=coursesRepo.findById(id).orElse(null);
-        courseMapper.updateCourseFromDto(course,S);
-       return coursesRepo.save(S);
 
+        Course entity = coursesRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Course not found"));
+
+        courseMapper.updateCourseFromDto(course, entity);
+
+        return coursesRepo.save(entity);
     }
 
-    /**
-     * @param id
-     */
     @Override
     public void deleteById(UUID id) {
+
         coursesRepo.deleteById(id);
-
     }
-
 
 
 

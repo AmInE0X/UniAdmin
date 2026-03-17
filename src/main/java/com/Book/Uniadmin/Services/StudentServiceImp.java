@@ -37,7 +37,8 @@ public class StudentServiceImp implements StudentService{
      */
     @Override
     public Student findById(UUID id) {
-        return null;
+        return studentRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student not found"));
     }
 
     /**
@@ -47,8 +48,7 @@ public class StudentServiceImp implements StudentService{
     @Override
     public Student create(StudentDTO student) {
         Student s = studentMapper.toEntity(student);
-        Student s1 = studentRepo.save(s);
-        return s1 ;
+        return studentRepo.save(s);
 
 
 
@@ -92,9 +92,9 @@ public class StudentServiceImp implements StudentService{
      * @return
      */
     @Override
-    public List<List<Student>> findAll() {
-        return List.of(
+    public List<Student> findAll() {
+        return
                 studentRepo.findAll()
-        );
+        ;
     }
 }

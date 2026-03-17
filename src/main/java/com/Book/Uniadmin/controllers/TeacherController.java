@@ -2,7 +2,9 @@ package com.Book.Uniadmin.controllers;
 
 import com.Book.Uniadmin.DTOs.TeacherDTO;
 import com.Book.Uniadmin.Services.CourseService;
+import com.Book.Uniadmin.Services.CourseServiceImp;
 import com.Book.Uniadmin.Services.TeacherService;
+import com.Book.Uniadmin.Services.TeacherServiceImp;
 import com.Book.Uniadmin.models.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,17 +17,17 @@ import java.util.UUID;
 @RequestMapping("teacher")
 public class TeacherController {
     @Autowired
-    CourseService courseService;
+    CourseServiceImp courseService;
     @Autowired
-    TeacherService teacherService;
+    TeacherServiceImp teacherService;
 
-    @PostMapping("")
-    public Teacher create(TeacherDTO teacher) {
+    @PostMapping
+    public Teacher create(@RequestBody TeacherDTO teacher) {
         return teacherService.create(teacher) ;
 
     }
     @GetMapping
-    public List<List<Teacher>> getAll(){
+    public List<Teacher> getAll(){
         return teacherService.findAll();
     }
     @PutMapping("{id}")

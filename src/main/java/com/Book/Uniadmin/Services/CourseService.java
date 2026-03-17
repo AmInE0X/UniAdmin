@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CourseService {
-    public List<List<Course>> findAll();
+    public List<Course> findAll();
     public Course findById(UUID id);
     public  Course create(CourseDTO course);
     public  Course update(CourseDTO course, UUID id);

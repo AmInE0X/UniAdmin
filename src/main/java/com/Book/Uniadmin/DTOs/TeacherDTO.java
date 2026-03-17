@@ -16,7 +16,7 @@ public class TeacherDTO {
 
         private String  name ;
         private String  email ;
-        private int  phone;
+        private String  phone;
         private String employeeId ;
         private UUID departmentId ;
 

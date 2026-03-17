@@ -15,6 +15,6 @@ public interface StudentService {
 
     public Student update(StudentDTO student,UUID s_id);
     public void deleteById(UUID id);
-    public List<List<Student>> findAll();
+    public List<Student> findAll();
 
 }

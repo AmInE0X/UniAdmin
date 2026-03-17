@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -17,7 +19,7 @@ public class StudentDTO {
                 private String email;
                 private String phone;
                 private Adress address;
-                private String department;
+                private UUID departmentId;
                 private String status;
                 private int year;
 
