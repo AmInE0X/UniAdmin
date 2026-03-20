@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.security.SecureRandom;
 import java.util.UUID;
 
 @Getter
@@ -23,8 +24,14 @@ public class Course {
     private UUID id;
 
     private String title;
+    private String code;
 
     private int credits;
+    private String description;
+    private String colorTheme;
+    private String icon;
+
+
 
     @ManyToOne
     private Teacher professor;

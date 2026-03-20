@@ -12,9 +12,12 @@ import java.util.UUID;
 @Getter
 @Setter
 public class CourseDTO {
+    private UUID id;
     private String  title;
+    private String code;
+    private String description;
     private int credits;
-    private UUID teacherId;
-
-
+    private String professorName;
+    private String colorTheme;
+    private String icon;
 }

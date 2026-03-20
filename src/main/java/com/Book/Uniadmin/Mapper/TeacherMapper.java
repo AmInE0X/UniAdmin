@@ -10,14 +10,13 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface TeacherMapper {
-    @org.mapstruct.Mapping(source = "department.id", target = "departmentId")
+    @org.mapstruct.Mapping(source = "department.name", target = "departmentName")
     TeacherDTO toDTO(Teacher teacher);
 
-    @org.mapstruct.Mapping(source = "departmentId", target = "department.id")
     @org.mapstruct.Mapping(target = "id", ignore = true)
+    @org.mapstruct.Mapping(target = "department", ignore = true)
     Teacher toEntity(TeacherDTO teacherDTO);
 
-    @org.mapstruct.Mapping(source = "departmentId", target = "department.id")
     @org.mapstruct.Mapping(target = "id", ignore = true)
     @org.mapstruct.Mapping(target = "department", ignore = true)
     void updateTeacherFromDto(TeacherDTO dto,

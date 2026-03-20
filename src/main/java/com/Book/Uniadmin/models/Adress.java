@@ -10,7 +10,7 @@ import lombok.Setter;
 public class Adress {
     private String city;
     private String street;
-    private String postalCode;
+    private String code_postal;
 
 
 

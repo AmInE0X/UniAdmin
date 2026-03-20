@@ -15,13 +15,15 @@ import java.util.UUID;
 @NoArgsConstructor
 
 public class StudentDTO {
+                private UUID id;
+                private String student_num;
                 private String name;
                 private String email;
                 private String phone;
                 private Adress address;
-                private UUID departmentId;
+                private String departmentName;
                 private String status;
-                private int year;
+                private String year;
 
 
         }

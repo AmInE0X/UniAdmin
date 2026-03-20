@@ -14,14 +14,12 @@ import java.util.UUID;
 
 public class TeacherDTO {
 
+        private UUID id;
         private String  name ;
         private String  email ;
         private String  phone;
         private String employeeId ;
-        private UUID departmentId ;
-
-
-
-
-
+        private String departmentName ;
+        private String designation;
+        private String avatar;
 }

@@ -22,6 +22,12 @@ public class Department {
     private UUID id;
 
     private String name;
+    private String college;
+    private String category;
+    private String head;
+    private String headAvatar;
+    private String description;
+    private String avatar;
 
     @OneToMany(mappedBy = "department")
     private List<Teacher> Teachers;

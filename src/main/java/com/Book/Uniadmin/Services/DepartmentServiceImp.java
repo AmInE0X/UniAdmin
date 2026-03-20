@@ -1,4 +1,70 @@
 package com.Book.Uniadmin.Services;
 
-public class DepartmentServiceImp {
+import com.Book.Uniadmin.DTOs.DepartmentDTO;
+import com.Book.Uniadmin.Mapper.DepartmentMapper;
+import com.Book.Uniadmin.models.Department;
+import com.Book.Uniadmin.models.Teacher;
+import com.Book.Uniadmin.repositories.DepartmentRepo;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.UUID;
+@Service
+public class DepartmentServiceImp implements DepartmentService {
+    /**
+     * @param department
+     * @return
+     */
+    @Autowired
+    private DepartmentRepo departmentRepo;
+    @Autowired
+    private DepartmentMapper departmentMapper;
+    @Override
+    public Department createDepartment(DepartmentDTO department) {
+        Department newDepartment = departmentMapper.toEntity(department);
+        return departmentRepo.save(newDepartment);
+
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public Department getDepartmentById(UUID id) {
+
+        return departmentRepo.findById(id).orElseThrow(()-> new RuntimeException("entity not found"));
+    }
+
+    /**
+     * @param id
+     */
+    @Override
+    public void deleteDepartment(UUID id) {
+        departmentRepo.deleteById(id);
+
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<Department> getAllDepartments() {
+        return departmentRepo.findAll();
+    }
+
+    /**
+     * @param id
+     * @return
+     */
+    @Override
+    public List<Teacher> getAllTeachersByDepartment(UUID id) {
+        Department department = getDepartmentById(id);
+        return department.getTeachers();
+
+
+    }
+
 }

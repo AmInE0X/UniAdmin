@@ -4,6 +4,9 @@ import com.Book.Uniadmin.DTOs.CourseDTO;
 import com.Book.Uniadmin.Services.CourseService;
 import com.Book.Uniadmin.Services.CourseServiceImp;
 import com.Book.Uniadmin.models.Course;
+import com.Book.Uniadmin.Mapper.CourseMapper;
+import com.Book.Uniadmin.models.Course;
+import com.Book.Uniadmin.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,23 +17,30 @@ import java.util.UUID;
 @RequestMapping("Course")
 public class CourseController {
     @Autowired
+    private CourseMapper courseMapper;
+    @Autowired
     private CourseServiceImp courseService;
+
     @GetMapping
-    public List<Course> get(){
-        return courseService.findAll();
+    public ApiResponse<List<CourseDTO>> get(){
+        List<CourseDTO> dtos = courseService.findAll().stream()
+                .map(courseMapper::toDTO).toList();
+        return ApiResponse.success(dtos);
 
     }
     @PostMapping
-    public Course save(@RequestBody CourseDTO course){
-        return courseService.create(course);
-
+    public ApiResponse<CourseDTO> save(@RequestBody CourseDTO course){
+        Course saved = courseService.create(course);
+        return ApiResponse.success(courseMapper.toDTO(saved));
     }
     @PutMapping("/{id}")
-    public Course update(@RequestBody CourseDTO course, @PathVariable UUID id){
-        return courseService.update(course, id);
+    public ApiResponse<CourseDTO> update(@RequestBody CourseDTO course, @PathVariable UUID id){
+        Course updated = courseService.update(course, id);
+        return ApiResponse.success(courseMapper.toDTO(updated));
     }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable UUID id){
+    public ApiResponse<String> delete(@PathVariable UUID id){
         courseService.deleteById(id);
+        return ApiResponse.success("Course deleted successfully");
     }
 }

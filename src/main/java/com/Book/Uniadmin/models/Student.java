@@ -14,17 +14,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Student extends Person {
-    private long studentNumber;
+    private String student_num;
 
     @Embedded
     private Adress address;
     @ManyToOne
     private Department department;
-    private String Year;
-    private Status Status ;
-
-
-
+    private String year;
+    private Status status ;
 
 
 
