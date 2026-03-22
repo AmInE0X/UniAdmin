@@ -16,7 +16,7 @@ import java.util.UUID;
 
 public class StudentDTO {
                 private UUID id;
-                private String student_num;
+                private String student_number;
                 private String name;
                 private String email;
                 private String phone;
@@ -24,6 +24,7 @@ public class StudentDTO {
                 private String departmentName;
                 private String status;
                 private String year;
+                private String avatar;
 
 
         }

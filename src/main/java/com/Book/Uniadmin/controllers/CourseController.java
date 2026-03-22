@@ -1,14 +1,15 @@
 package com.Book.Uniadmin.controllers;
 
 import com.Book.Uniadmin.DTOs.CourseDTO;
-import com.Book.Uniadmin.Services.CourseService;
 import com.Book.Uniadmin.Services.CourseServiceImp;
 import com.Book.Uniadmin.models.Course;
 import com.Book.Uniadmin.Mapper.CourseMapper;
-import com.Book.Uniadmin.models.Course;
 import com.Book.Uniadmin.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.UUID;
@@ -21,10 +22,17 @@ public class CourseController {
     @Autowired
     private CourseServiceImp courseService;
 
-    @GetMapping
-    public ApiResponse<List<CourseDTO>> get(){
+    @GetMapping("all")
+    public ApiResponse<List<CourseDTO>> getAll() {
         List<CourseDTO> dtos = courseService.findAll().stream()
                 .map(courseMapper::toDTO).toList();
+        return ApiResponse.success(dtos);
+    }
+
+    @GetMapping
+    public ApiResponse<Page<CourseDTO>> get(Pageable pageable){
+        Page<CourseDTO> dtos = courseService.findAll(pageable)
+                .map(courseMapper::toDTO);
         return ApiResponse.success(dtos);
 
     }
@@ -38,6 +46,12 @@ public class CourseController {
         Course updated = courseService.update(course, id);
         return ApiResponse.success(courseMapper.toDTO(updated));
     }
+    @GetMapping("/{id}")
+    public ApiResponse<CourseDTO> getById(@PathVariable UUID id){
+        Course course = courseService.findById(id);
+        return ApiResponse.success(courseMapper.toDTO(course));
+    }
+
     @DeleteMapping("/{id}")
     public ApiResponse<String> delete(@PathVariable UUID id){
         courseService.deleteById(id);

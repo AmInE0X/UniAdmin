@@ -5,12 +5,19 @@ import com.Book.Uniadmin.Mapper.CourseMapper;
 import com.Book.Uniadmin.models.Course;
 import com.Book.Uniadmin.repositories.CoursesRepo;
 import com.Book.Uniadmin.repositories.TeacherRep;
+import com.Book.Uniadmin.repositories.EnrollmentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
 @Service
+@Transactional
 public class CourseServiceImp implements CourseService {
 
     @Autowired
@@ -22,9 +29,17 @@ public class CourseServiceImp implements CourseService {
     @Autowired
     private TeacherRep teacherRep;
 
+    @Autowired
+    private EnrollmentRepo enrollmentRepo;
+
     @Override
     public List<Course> findAll() {
         return coursesRepo.findAll();
+    }
+
+    @Override
+    public Page<Course> findAll(Pageable pageable) {
+        return coursesRepo.findAll(pageable);
     }
 
     @Override
@@ -54,7 +69,7 @@ public class CourseServiceImp implements CourseService {
 
     @Override
     public void deleteById(UUID id) {
-
+        enrollmentRepo.deleteById_CourseId(id);
         coursesRepo.deleteById(id);
     }
 

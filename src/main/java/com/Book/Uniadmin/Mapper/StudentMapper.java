@@ -8,17 +8,14 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface StudentMapper {
 
-    @org.mapstruct.Mapping(source = "department.id", target = "departmentId")
+    @org.mapstruct.Mapping(source = "department.name", target = "departmentName")
     StudentDTO toDTO(Student student);
 
-    @org.mapstruct.Mapping(source = "departmentId", target = "department.id")
     @org.mapstruct.Mapping(target = "id", ignore = true)
-    @org.mapstruct.Mapping(target = "studentNumber", ignore = true)
+    @org.mapstruct.Mapping(target = "department", ignore = true)
     Student toEntity(StudentDTO student);
 
-    @org.mapstruct.Mapping(source = "departmentId", target = "department.id")
     @org.mapstruct.Mapping(target = "id", ignore = true)
-    @org.mapstruct.Mapping(target = "studentNumber", ignore = true)
     @org.mapstruct.Mapping(target = "department", ignore = true)
     void updateStudentFromDto(StudentDTO dto,
                               @MappingTarget Student student);

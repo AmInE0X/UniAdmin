@@ -17,7 +17,8 @@ public class CourseDTO {
     private String code;
     private String description;
     private int credits;
-    private String professorName;
+    private String teacher;
+    private String department;
     private String colorTheme;
     private String icon;
 }

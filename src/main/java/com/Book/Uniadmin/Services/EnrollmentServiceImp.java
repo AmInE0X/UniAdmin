@@ -11,6 +11,7 @@ import com.Book.Uniadmin.repositories.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.Book.Uniadmin.models.EnrollmentId;
 import java.util.UUID;
 @Service
 public class EnrollmentServiceImp implements EnrollmentService {
@@ -46,9 +47,14 @@ public class EnrollmentServiceImp implements EnrollmentService {
                 .orElseThrow(() -> new RuntimeException("Course not found"));
 
         Enrollment enrollment1 = new Enrollment();
-
+        
+        // Initialize the composite ID
+        EnrollmentId enrollmentId = new EnrollmentId(student.getId(), course.getId());
+        enrollment1.setId(enrollmentId);
+        
         enrollment1.setStudent(student);
         enrollment1.setCourse(course);
+        enrollment1.setEnrollmentDate(enrollment.getEnrollmentDate());
 
         return enrollmentRepo.save(enrollment1);
 

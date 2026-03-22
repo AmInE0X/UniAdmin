@@ -16,7 +16,6 @@ public class Teacher extends Person {
 
         private String employeeId;
         private String designation;
-        private String avatar;
 
 
         @ManyToOne

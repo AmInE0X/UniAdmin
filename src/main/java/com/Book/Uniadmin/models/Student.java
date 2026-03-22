@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 public class Student extends Person {
-    private String student_num;
+    private String student_number;
 
     @Embedded
     private Adress address;

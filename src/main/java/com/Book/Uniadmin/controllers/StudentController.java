@@ -8,14 +8,16 @@ import com.Book.Uniadmin.Services.StudentService;
 import com.Book.Uniadmin.Services.StudentServiceImp;
 import com.Book.Uniadmin.models.Enrollment;
 import com.Book.Uniadmin.models.Student;
-import com.Book.Uniadmin.models.Student;
 import com.Book.Uniadmin.repositories.StudentRepo;
 import com.Book.Uniadmin.Mapper.StudentMapper;
 import com.Book.Uniadmin.Mapper.EnrollmentMapper;
 import com.Book.Uniadmin.responses.ApiResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,9 +34,9 @@ public class StudentController {
     private EnrollmentMapper enrollmentMapper;
 
     @GetMapping
-    public ApiResponse<List<StudentDTO>> getALL(){
-        List<StudentDTO> dtos = studentService.findAll().stream()
-                .map(studentMapper::toDTO).toList();
+    public ApiResponse<Page<StudentDTO>> getALL(Pageable pageable){
+        Page<StudentDTO> dtos = studentService.findAll(pageable)
+                .map(studentMapper::toDTO);
         return ApiResponse.success(dtos);
     }
     @PostMapping
@@ -52,6 +54,12 @@ public class StudentController {
         Enrollment saved = enrollmentService.enroll(enrollment);
         return ApiResponse.success(enrollmentMapper.toDTO(saved));
     }
+    @GetMapping("{id}")
+    public ApiResponse<StudentDTO> getById(@PathVariable UUID id) {
+        Student student = studentService.findById(id);
+        return ApiResponse.success(studentMapper.toDTO(student));
+    }
+
     @DeleteMapping("{id}")
     public ApiResponse<String> delete(@PathVariable UUID id) {
         studentService.deleteById(id);

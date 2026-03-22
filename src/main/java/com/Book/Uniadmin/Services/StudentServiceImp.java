@@ -6,6 +6,8 @@ import com.Book.Uniadmin.models.Course;
 import com.Book.Uniadmin.models.Student;
 import com.Book.Uniadmin.repositories.StudentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -96,5 +98,10 @@ public class StudentServiceImp implements StudentService{
         return
                 studentRepo.findAll()
         ;
+    }
+
+    @Override
+    public Page<Student> findAll(Pageable pageable) {
+        return studentRepo.findAll(pageable);
     }
 }
